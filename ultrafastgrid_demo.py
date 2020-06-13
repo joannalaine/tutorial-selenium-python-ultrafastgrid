@@ -5,6 +5,7 @@ import os
 
 from applitools.selenium import (
     logger,
+    FileLogger,
     VisualGridRunner,
     Eyes,
     Target,
@@ -17,7 +18,7 @@ from applitools.selenium import (
 def set_up(eyes):
 
     # You can get your api key from the Applitools dashboard
-    eyes.configure.set_api_key("APPLITOOLS_API_KEY")
+    eyes.configure.set_api_key(os.environ["APPLITOOLS_API_KEY"])
 
     # create a new batch info instance and set it to the configuration
     eyes.configure.set_batch(BatchInfo("Ultrafast Batch"))
@@ -34,11 +35,13 @@ def set_up(eyes):
         .add_device_emulation(DeviceName.Pixel_2)
     )
 
+    logger.set_logger(FileLogger("mostrecent.log", mode="w"))
 
-def ultra_fast_test(web_driver, eyes):
+
+def ultra_fast_test(web_driver, eyes, url):
     try:
         # Navigate to the url we want to test
-        web_driver.get("https://demo.applitools.com")
+        web_driver.get(url)
 
         # Call Open on eyes to initialize a test session
         eyes.open(
@@ -83,9 +86,11 @@ eyes = Eyes(runner)
 set_up(eyes)
 
 try:
+    # Test URL: https://demo.applitools.com
     # ⭐️ Note to see visual bugs, run the test using the above URL for the 1st run.
     # but then change the above URL to https://demo.applitools.com/index_v2.html
     # (for the 2nd run)
-    ultra_fast_test(web_driver, eyes)
+    ultra_fast_test(web_driver, eyes, "https://demo.applitools.com")
+    # ultra_fast_test(web_driver, eyes, "https://demo.applitools.com/index_v2.html")
 finally:
     tear_down(web_driver, runner)
