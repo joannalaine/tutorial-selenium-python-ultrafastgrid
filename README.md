@@ -16,15 +16,16 @@ Start with the ready-to-run code [Github repo](https://github.com/joannalaine/tu
 `git clone git@github.com:joannalaine/tutorial-selenium-python-ultrafastgrid.git`, or download [this as a Zip file](https://github.com/joannalaine/tutorial-selenium-python-ultrafastgrid/archive/master.zip) and unzip it
 2. `cd tutorial-selenium-python-ultrafastgrid`
 3. Set the APPLITOOLS_API_KEY environment variable
-    - Mac: `export APPLITOOLS_API_KEY='YOUR_API_KEY'`
-    - Windows: `set APPLITOOLS_API_KEY='YOUR_API_KEY'`
+    - Mac: `export APPLITOOLS_KEY='YOUR_API_KEY'`
+    - Windows: `set APPLITOOLS_KEY='YOUR_API_KEY'`
 4. Create/activate your virtualenv
     ```
     python -m venv .venv
     source .venv/bin/activate
     ```
 5. Install requirements `pip install -r requirements.txt`
-6. Run `ultrafastgrid_demo.py` by calling `python ultrafastgrid_demo.py` 
-7. If you want run from IDE - start PyCharm, open just cloned project, set project interpreter by File > Settings > Project: > Project Interpreter  choose interpreter by dropdown box; tap Run and choose `ultrafastgrid_demo`.
+6. Run the v1 test first by calling `python -m pytest -k test_tutorial_v1`. This will set the appropriate baselines for the working site version. 
+7. Run the v2 test second by calling `python -m pytest -k test_tutorial_v2`. This will find the mismatches in the buggy site version.
+
 
 Read more here: https://www.applitools.com/tutorials/selenium-python.html
